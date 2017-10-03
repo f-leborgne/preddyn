@@ -12,6 +12,16 @@ if (!require("devtools"))
 
 devtools::install_github("rstudio/shiny")
 ```
+For users behind proxy it could be necessary to properly configure it:
+```{r}
+if (!require("httr", character.only=T, quietly=T)) {
+    install.packages("httr")
+    library("httr", character.only=T)
+}
+set_config(
+  use_proxy(url="...", port=xxxx)
+)
+```
 To download and run this app directly you can use:
 ```{r}
 shiny::runGitHub("preddyn", "f-leborgne")
