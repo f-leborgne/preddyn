@@ -14,9 +14,10 @@ devtools::install_github("rstudio/shiny")
 ```
 For users behind proxy it could be necessary to properly configure it:
 ```{r}
-if (!require("httr")) 
+if (!require("httr")){
     install.packages("httr")
-    
+    library("httr")
+ }   
 set_config(
   use_proxy(url="...", port=xxxx)
 )
