@@ -1,13 +1,3 @@
-# check if necessary packages are installed and install if not
-list.of.packages <- c("shiny", "shinyjs", "JM")
-
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
-
-# load packages
-lapply(list.of.packages, require, character.only = T)
-
-
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
 	
