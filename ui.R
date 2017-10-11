@@ -36,7 +36,7 @@ shinyUI(fluidPage(
 			width=3,
 			dateInput("Dgreffeb", "Date de greffe", format = "dd/mm/yyyy"),
 			tags$label(br(),""),
-			selectInput("rangGreffe", "Transplantation rank", c("Choose"="",1,2,3,4,5)),
+			selectInput("rangGreffe", "Transplantation rank", c("Choose"="",1,2)),
 			tags$label(br(),""),
 			numericInput("AgeR_calc", "Recipient age at transplantation (year)", "", min=1, max=90),
 			tags$label(br(),""),

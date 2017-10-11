@@ -1,7 +1,6 @@
-# Define server logic required to draw a histogram
+load("JM_EJEquesurv.RData")	
+
 shinyServer(function(input, output, session) {
-	
-	load("JM_EJEquesurv.RData")	
 	
 	rv <- reactiveValues()  
 	
@@ -97,33 +96,34 @@ shinyServer(function(input, output, session) {
 	})
 	
 	
-	horizon<-5			
+	horizon<-5	
 	
 	output$graph <- renderPlot({
 		if(rv$validform){
 			if(dim(bdd.long())[1]>=1){
 				ND <- bdd.long()
-				survPreds <- vector("list", nrow(ND))
-				
-				for (i in 0:(min(nrow(ND), 5)-1)){
-					set.seed(123)
-					survPreds[[i+1]]<-survfitJM(JM_EJEquesurv, newdata=ND[1:(i+1),], last.time=round(as.numeric(ND[(i+1),"tps_postM12"]),2),idVar="clef",survTimes= round(as.numeric(ND[(i+1),"tps_postM12"]),2)+horizon,simulate=T)
-				}
+				#survPreds <- vector("list", nrow(ND))
 				
 				if(input$ajouter != 0){
 					ind <- input$slider_graph
 				}else{
 					ind <- 1
 				}
+				#for (i in 0:(min(nrow(ND), 5)-1)){
+				set.seed(123)
+				survPreds <- survfitJM(JM_EJEquesurv, newdata=ND[1:ind,], last.time=round(as.numeric(ND[ind,"tps_postM12"]),2), idVar="clef", survTimes=seq(round(as.numeric(ND[ind,"tps_postM12"]),2), round(as.numeric(ND[ind,"tps_postM12"]),2)+horizon,0.33), simulate=T)
+				#}
 				
-				plot.survfitJM(survPreds[[ind]], estimator="median", conf.int=TRUE, include.y=TRUE, ylab="", ylab2="", xlab="", main=paste("Visite ", ind))
+				
+				
+				plot.survfitJM(survPreds, estimator="median", conf.int=TRUE, include.y=TRUE, ylab="", ylab2="", xlab="", main=paste("Visite ", ind))
 				
 				mtext("log(serum of creatinine)", side=2, line=-1, outer=TRUE)
 				mtext("Survival Probability", side=4, line=-1, outer=TRUE)				
 			}
 		}
 	},width = function() {
-		min(session$clientData$output_survie_width,500)
+		min(session$clientData$output_graph_width,500)
 	})	
 
 	
