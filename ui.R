@@ -40,7 +40,6 @@ shinyUI(fluidPage(
 			tags$label(br(),""),
 			numericInput("AgeR_calc", "Recipient age at transplantation (year)", "", min=1, max=90),
 			tags$label(br(),""),
-			radioButtons("sexeD", "Sexe du donneur", choices = c("Femme"=0, "Homme"=1), selected = character(0), inline = TRUE),
 			tags$label(br(),""),
 			radioButtons("cardioVasc", "Antécédents cardio-vasculaires", choices = c("Non"=0, "Oui"=1), selected = character(0), inline = TRUE),
 			tags$label(br(),""),

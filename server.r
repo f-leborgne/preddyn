@@ -1,11 +1,11 @@
-load("JM_EJEquesurv.RData")	
+load("JM_EJEquesurv_sexeD.RData")	
 
 shinyServer(function(input, output, session) {
 	
 	rv <- reactiveValues()  
 	
 	observe({
-		if( !isTruthy(input$Dgreffeb) | input$rangGreffe=="" | is.na(input$AgeR_calc) | is.null(input$sexeD) | is.null(input$cardioVasc) | is.null(input$antiClassI) | is.null(input$rejet1an) | is.na(input$creat_3m) | !isTruthy(input$Dsuivi_12m) | is.na(input$creat_12m) ){
+		if( !isTruthy(input$Dgreffeb) | input$rangGreffe=="" | is.na(input$AgeR_calc) | is.null(input$cardioVasc) | is.null(input$antiClassI) | is.null(input$rejet1an) | is.na(input$creat_3m) | !isTruthy(input$Dsuivi_12m) | is.na(input$creat_12m) ){
 			rv$validform <- FALSE
 		}else{
 			temp <- TRUE
@@ -62,7 +62,6 @@ shinyServer(function(input, output, session) {
 				rangGreffe = as.numeric(input$rangGreffe),
 				AgeR_calc = input$AgeR_calc,
 				cardioVasc = as.numeric(input$cardioVasc),
-				sexeD = as.numeric(input$sexeD),
 				antiClassI = as.numeric(input$antiClassI),
 				Rejet1an = as.numeric(input$rejet1an),
 				creat_3m = input$creat_3m,
@@ -111,7 +110,7 @@ shinyServer(function(input, output, session) {
 				}
 				#for (i in 0:(min(nrow(ND), 5)-1)){
 				set.seed(123)
-				survPreds <- survfitJM(JM_EJEquesurv, newdata=ND[1:ind,], last.time=round(as.numeric(ND[ind,"tps_postM12"]),2), idVar="clef", survTimes=seq(round(as.numeric(ND[ind,"tps_postM12"]),2), round(as.numeric(ND[ind,"tps_postM12"]),2)+horizon,0.33), simulate=T)
+				survPreds <- survfitJM(JM_EJEquesurv_sexeD, newdata=ND[1:ind,], last.time=round(as.numeric(ND[ind,"tps_postM12"]),2), idVar="clef", survTimes=seq(round(as.numeric(ND[ind,"tps_postM12"]),2), round(as.numeric(ND[ind,"tps_postM12"]),2)+horizon,0.33), simulate=T)
 				#}
 				
 				
